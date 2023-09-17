@@ -63,15 +63,25 @@ window.addEventListener("load", function () {
 
       // ● optional: this will remove the dark overlay that makes it difficult to read the subtitles when on pause/send shortcut + it move the volume button to the right side. This block can be commented out.
       var styles = `
-                    video::-webkit-media-text-track-display {
-            bottom: 50px !important;
-            top: auto !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            text-align: center !important;
-            font-size: 1.2em !important;
-            color: white !important;
-            background-color: rgba(0, 0, 0, 0.6) !important; /* Optional: Adds a semi-transparent background to the subtitles for better readability */
+      .vjs-text-track-cue > div {
+        font-size: 90%; 
+        }
+
+
+        video::cue {
+            font-size: 6em !important;
+            color: white
+            z-index: 9999;
+            background-color: rgba(0, 0, 0, 0.6) !important;
+        }
+        
+        .video-js:before{
+            background: #f5f0f000;
+        }
+        /* move volume button to the right side */
+        .video-js .vjs-volume-panel.vjs-volume-panel-vertical {
+            position: relative;
+           left: 60px;
         }
             `;
       var styleSheet = document.createElement("style");
@@ -97,7 +107,7 @@ window.addEventListener("load", function () {
           // vttTranslatedEn = vttTranslatedEn.replaceAll("line:90% position:50% align:middle", "line:10% position:20% align:left"); // ● replace "line:10% position:20% align:left" by whatever you want
           vttTranslatedEn = vttTranslatedEn.replaceAll(
             /line:\d+% position:\d+% align:center/g,
-            "line:10% position:20% align:left"
+            "line:5% position:5% align:left"
           ); // ● replace "line:10% position:20% align:left" by whatever you want
 
           // save the translated subtitles in the local storage
@@ -119,7 +129,6 @@ window.addEventListener("load", function () {
           // change the size of the text   ●
           var styles = `
                           video::-webkit-media-text-track-display {
-                          font-size: 50%;
                           }
                         `;
           var styleSheet = document.createElement("style");
